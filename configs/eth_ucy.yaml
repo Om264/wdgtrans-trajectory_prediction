@@ -1,0 +1,32 @@
+# ETH/UCY, leave-one-out protocol (train on 4 scenes, test on the 5th).
+# Expected layout (Social-GAN format):  data/eth_ucy/<scene>/{train,val,test}/*.txt
+seed: 42
+device: auto
+out_dir: runs/eth_ucy_eth
+data:
+  name: eth_ucy
+  root: data/eth_ucy
+  all_sets: [eth, hotel, univ, zara1, zara2]
+  test_set: eth          # change to hotel / univ / zara1 / zara2
+  obs_len: 8             # 3.2 s
+  pred_len: 12           # 4.8 s
+  skip: 1
+model:
+  dim: 64
+  heads: 4
+  depth: 3
+  dropout: 0.1
+  num_modes: 20          # best-of-20 evaluation
+train:
+  epochs: 100
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  warmup_epochs: 3
+  grad_clip: 1.0
+  augment: true
+  num_workers: 4
+loss:
+  relax: 0.05
+  fde_weight: 0.5
+  cls_weight: 0.1

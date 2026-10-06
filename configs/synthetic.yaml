@@ -1,0 +1,29 @@
+# Quick smoke-test config (no downloads needed). Runs in a minute or two on CPU.
+seed: 42
+device: auto
+out_dir: runs/synthetic
+data:
+  name: synthetic
+  obs_len: 8
+  pred_len: 12
+  num_scenes: 2000
+  max_agents: 8
+model:
+  dim: 64
+  heads: 4
+  depth: 2
+  dropout: 0.1
+  num_modes: 3
+train:
+  epochs: 15
+  batch_size: 64
+  lr: 0.001
+  weight_decay: 0.0001
+  warmup_epochs: 1
+  grad_clip: 1.0
+  augment: true
+  num_workers: 0
+loss:
+  relax: 0.05
+  fde_weight: 0.5
+  cls_weight: 0.1
